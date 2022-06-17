@@ -23,9 +23,46 @@ class Person {
   }
 }
 
-const me = new Person("Andrew", "Mead", 27, ["Teaching", "Biking"]);
-me.setName("Alexis Turner");
+class Employee extends Person {
+  constructor(firstName, lastName, age, position, likes) {
+    super(firstName, lastName, age, likes);
+    this.position = position;
+  }
+  getBio() {
+    return `${this.firstName} ${this.lastName} is a ${this.position}.`;
+  }
+  getYearsLeft() {
+    return `You gave ${65 - this.age} years Left`;
+  }
+}
+
+class Student extends Person {
+  constructor(firstName, lastName, marks, age, likes) {
+    super(firstName, lastName, age, likes);
+    this.marks = marks;
+  }
+  updateMarks(change) {
+    this.marks += change;
+  }
+  getBio() {
+    const result = this.marks >= 70 ? "passing" : "failing";
+    return `${this.firstName} is ${result} in the class`;
+  }
+}
+
+const me = new Student("Mann", "Shah", 87, 21, []);
+console.log(me.getBio());
+me.updateMarks(-55);
 console.log(me.getBio());
 
-const person2 = new Person("Clancey", "Turner", 51);
-console.log(person2.getBio());
+// const me = new Employee("Mann", "Shah", 21, "New to JSON", [
+//   "Programming",
+//   "Biking",
+// ]);
+// // console.log(me);
+// me.setName("Shah Mann");
+// console.log(me.getBio());
+// console.log(me.getYearsLeft());
+
+// const person2 = new Person("Clancey", "Turner", 51);
+// console.log(person2.getBio());
