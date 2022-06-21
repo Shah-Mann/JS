@@ -12,21 +12,54 @@ window.addEventListener("keypress", (e) => {
   guessesEl.textContent = game1.statusMessage;
 });
 
-getPuzzle("1", (error, puzzle) => {
-  if (error) {
-    console.log(`Eroor: ${error}`);
-  } else {
+getPuzzle("2")
+  .then((puzzle) => {
     console.log(puzzle);
-  }
-});
+  })
+  .catch((err) => {
+    console.log(`Error: ${err}`);
+  });
 
-getCountry("IN", (error, Country) => {
-  if (error) {
-    console.log(error);
-  } else {
-    console.log(Country.name);
-  }
-});
+// getCountry("IN").then(
+//   (name) => {
+//     console.log(name.name);
+//   },
+//   (err) => {
+//     console.log(`Error: ${err}`);
+//   }
+// );
+
+getLocation()
+  .then((location) => {
+    return getCountry(location.country);
+  })
+  .then((country) => {
+    console.log(country.name);
+  })
+  .catch((err) => {
+    console.log(`Error: ${err}`);
+  });
+
+// fetch("http://puzzle.mead.io/puzzle", {})
+//   .then((response) => {
+//     if (response.status === 200) {
+//       return response.json();
+//     } else {
+//       throw new Error("Unable to load Puzzle");
+//     }
+//   })
+//   .then((data) => {
+//     console.log(data.puzzle);
+//   })
+//   .catch((error) => {
+//     console.log(error);
+//   });
+
+// if (error) {
+//   console.log(error);
+// } else {
+//   console.log(Country.name);
+// }
 
 // const puzzle = getPuzzleSync();
 // console.log(puzzle);

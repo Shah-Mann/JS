@@ -1,33 +1,40 @@
-const getPuzzle = (wordCount, callback) => {
-  const request = new XMLHttpRequest();
-
-  request.addEventListener("readystatechange", (e) => {
-    if (e.target.readyState === 4 && e.target.status === 200) {
-      const data = JSON.parse(e.target.responseText);
-      callback(undefined, data.puzzle);
-    } else if (e.target.readyState === 4) {
-      callback("Error Occured", undefined);
-    }
-  });
-  request.open("GET", `https://puzzle.mead.io/puzzle?wordCount=${wordCount}`);
-  request.send();
+const getPuzzle = (wordCount) => {
+  return fetch(`http://puzzle.mead.io/puzzle?wordCount=${wordCount}`)
+    .then((response) => {
+      if (response.status === 200) {
+        return response.json();
+      } else {
+        throw new Error("Unable to load Puzzle");
+      }
+    })
+    .then((data) => {
+      return data.puzzle;
+    });
+};
+const getCountry = (countryCode) => {
+  return fetch("https://restcountries.com/v3.1/all")
+    .then((response) => {
+      if (response.status === 200) {
+        return response.json();
+      } else {
+        throw new Error("Unable to load data");
+      }
+    })
+    .then((data) => {
+      return data.find((country) => country.cca2 === countryCode);
+    });
 };
 
-const getCountry = (countryCode, callback) => {
-  const countryRequest = new XMLHttpRequest();
-
-  countryRequest.addEventListener("readystatechange", (e) => {
-    if (e.target.readyState === 4 && e.target.status === 200) {
-      const data = JSON.parse(e.target.responseText);
-      const country = data.find((country) => country.cca2 === countryCode);
-      callback(undefined, country);
-    } else if (e.target.readyStatet === 4) {
-      callback("Unable to fetch  data");
+const getLocation = () => {
+  return fetch("http://ipinfo.io/json?token=8efab4cc9f1acc").then(
+    (response) => {
+      if (response.status === 200) {
+        return response.json();
+      } else {
+        throw new Error("Unable to load location");
+      }
     }
-  });
-
-  countryRequest.open("GET", "https://restcountries.com/v3.1/all");
-  countryRequest.send();
+  );
 };
 // const getPuzzleSync = () => {
 //   const request = new XMLHttpRequest();
