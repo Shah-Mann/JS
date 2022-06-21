@@ -12,13 +12,27 @@ window.addEventListener("keypress", (e) => {
   guessesEl.textContent = game1.statusMessage;
 });
 
-getPuzzle((error, puzzle) => {
+getPuzzle("1", (error, puzzle) => {
   if (error) {
     console.log(`Eroor: ${error}`);
   } else {
     console.log(puzzle);
   }
 });
+
+getCountry("IN", (error, Country) => {
+  if (error) {
+    console.log(error);
+  } else {
+    console.log(Country.name);
+  }
+});
+
+// const puzzle = getPuzzleSync();
+// console.log(puzzle);
+
+// console.log("Hello");
+
 // const countryCode = "IN";
 // const countryRequest = new XMLHttpRequest();
 
