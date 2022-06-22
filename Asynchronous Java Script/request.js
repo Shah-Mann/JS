@@ -7,31 +7,33 @@ const getPuzzle = async (wordCount) => {
     const data = await response.json();
     return data.puzzle;
   } else {
-    throw new Error("Unable to load puzzle");
+    throw new Error("Unable to get puzzle");
   }
 };
 
-// const getPuzzleold = (wordCount) => {
-//   return fetch(`http://puzzle.mead.io/puzzle?wordCount=${wordCount}`)
-//     .then((response) => {
-//       if (response.status === 200) {
-//         return response.json();
-//       } else {
-//         throw new Error("Unable to load Puzzle");
-//       }
-//     })
-//     .then((data) => {
-//       return data.puzzle;
-//     });
-// };
+const getCurrentCountry = async () => {
+  const location = await getLocation();
+  return getCountry(location.country);
+};
 
 const getCountry = async (countryCode) => {
   const response = await fetch("https://restcountries.com/v3.1/all");
+
   if (response.status === 200) {
-    const response = await response.json();
+    const data = await response.json();
     return data.find((country) => country.cca2 === countryCode);
   } else {
-    throw new Error("Unable to load country");
+    throw new Error("Unable to fetch the country");
+  }
+};
+
+const getLocation = async () => {
+  const response = await fetch("http://ipinfo.io/json?token=8efab4cc9f1acc");
+
+  if (response.status === 200) {
+    return response.json();
+  } else {
+    throw new Error("Unable to get the current location");
   }
 };
 
@@ -49,16 +51,19 @@ const getCountry = async (countryCode) => {
 //     });
 // };
 
-const getLocation = async () => {
-  const response = await fetch(
-    "https://restcountries.com/v3.1ipinfo.io/json?token=8efab4cc9f1acc"
-  );
-  if (response.status === 200) {
-    return response.json();
-  } else {
-    throw new Error("Unable to load location");
-  }
-};
+// const getPuzzleold = (wordCount) => {
+//   return fetch(`http://puzzle.mead.io/puzzle?wordCount=${wordCount}`)
+//     .then((response) => {
+//       if (response.status === 200) {
+//         return response.json();
+//       } else {
+//         throw new Error("Unable to load Puzzle");
+//       }
+//     })
+//     .then((data) => {
+//       return data.puzzle;
+//     });
+// };
 
 // const getLocationold = () => {
 //   return fetch("http://ipinfo.io/json?token=8efab4cc9f1acc").then(
