@@ -1,20 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link href="/app/style/style.css" rel="stylesheet" />
+    <link href="/app/1.png" rel="icon" />
     <title>Todo</title>
   </head>
   <body>
-    <h1>Todos</h1>
-    <input id="i2" type="text" placeholder="Filter Todo" />
-    <label>
-      <input id="hide-completed" type="checkbox" /> Hide Completed
-    </label>
-    <div id="todos"></div>
-    <form id="new-todo">
-      <input type="text" placeholder="Something to do" name="text" />
-      <button id="b1">Add Todo</button>
-    </form>
-    <script src="./challenge-21-function.js"></script>
-    <script src="./challenge-21.js"></script>
+    <div class="header">
+      <div class="container">
+        <h1 class="header__title">To-DO App</h1>
+        <h2 class="header__subtitle">Things to Do</h2>
+      </div>
+    </div>
+
+    <div class="actions">
+      <div class="actions__container">
+        <input class="input" id="i2" type="text" placeholder="Filter Todo" />
+        <label class="checkbox">
+          <input id="hide-completed" type="checkbox" /> Hide Completed
+        </label>
+      </div>
+    </div>
+
+    <div class="container">
+      <div id="todos"></div>
+      <form id="new-todo">
+        <input type="text" placeholder="Something to do" name="text" />
+        <button class="button" id="b1">Add Todo</button>
+      </form>
+    </div>
+
+    <script src="/app/scripts/challenge-21-function.js"></script>
+    <script src="/app/scripts/challenge-21.js"></script>
   </body>
 </html>
