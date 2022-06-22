@@ -20,6 +20,14 @@ getPuzzle("2")
     console.log(`Error: ${err}`);
   });
 
+getCurrentCountry()
+  .then((country) => {
+    console.log(country.name);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+
 // getCountry("IN").then(
 //   (name) => {
 //     console.log(name.name);
@@ -29,16 +37,16 @@ getPuzzle("2")
 //   }
 // );
 
-getLocation()
-  .then((location) => {
-    return getCountry(location.country);
-  })
-  .then((country) => {
-    console.log(country.name);
-  })
-  .catch((err) => {
-    console.log(`Error: ${err}`);
-  });
+// getLocation()
+//   .then((location) => {
+//     return getCountry(location.country);
+//   })
+//   .then((country) => {
+//     console.log(country.name);
+//   })
+//   .catch((err) => {
+//     console.log(`Error: ${err}`);
+//   });
 
 // fetch("http://puzzle.mead.io/puzzle", {})
 //   .then((response) => {
