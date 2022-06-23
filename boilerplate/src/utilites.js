@@ -4,4 +4,6 @@ const name = "mann";
 
 const square = (x) => x * x;
 
+console.log("Hello");
+
 export { add, name, square as default };
