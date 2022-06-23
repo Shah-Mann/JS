@@ -1,8 +1,5 @@
-import uuidv5 from "uuid/v5";
 import Hangman from "./hangman";
 import getPuzzle from "./request";
-
-console.log(uuidv5());
 
 const puzzleEl = document.querySelector("#puzzle");
 const guessesEl = document.querySelector("#guesses");
