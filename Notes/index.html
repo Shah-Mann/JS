@@ -3,8 +3,8 @@
 <html>
   <head>
     <title>Notes App</title>
-    <link href="/Notes/1.png?v=1" rel="icon" />
-    <link rel="stylesheet" href="/Notes/style/style.css" />
+    <link href="/images/1.png" rel="icon" />
+    <link href="/style/style.css" rel="stylesheet" />
   </head>
   <body>
     <header class="header">
@@ -16,12 +16,12 @@
     <div class="actions">
       <div class="actions__container">
         <input
-          class="input"
           id="search-text"
           type="text"
+          class="input"
           placeholder="Filter notes"
         />
-        <select class="dropdown" id="filter-by">
+        <select id="filter-by" class="dropdown">
           <option value="byEdited">Sort by last edited</option>
           <option value="byCreated">Sort by recently created</option>
           <option value="alphabetical">Sort alphabetically</option>
@@ -32,8 +32,9 @@
       <div id="notes"></div>
       <button id="create-note" class="button">Create Note</button>
     </div>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment-with-locales.min.js"></script>
-    <script src="/Notes/scripts/notes-functions.js"></script>
-    <script src="/Notes/scripts/notes-app.js"></script>
+    <script src="/scripts/uuidv4.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment-with-locales.min.js"></script>
+    <script src="/scripts/notes-functions.js"></script>
+    <script src="/scripts/notes-app.js"></script>
   </body>
 </html>

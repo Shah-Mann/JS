@@ -1,3 +1,5 @@
+"use strict";
+
 function createUUID() {
   return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
     var r = (Math.random() * 16) | 0,
@@ -50,7 +52,7 @@ const generateNoteDOM = (note) => {
   noteEl.setAttribute("href", `edit.html#${note.id}`);
   noteEl.classList.add("list-item");
 
-  // Setup the status Message
+  // Setup the status message
   statusEl.textContent = generateLastEdited(note.updatedAt);
   statusEl.classList.add("list-item__subtitle");
   noteEl.appendChild(statusEl);
