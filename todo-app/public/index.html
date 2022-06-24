@@ -1,10 +1,35 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>BoilerPlate App</title>
+    <link href="/app/style/style.css" rel="stylesheet" />
+    <link href="/app/images/1.png" rel="icon" />
+    <title>Todo</title>
   </head>
   <body>
-    <h1>BoilerPlate</h1>
-    <script src="/boilerplate/public/scripts/bundle.js"></script>
+    <div class="header">
+      <div class="container">
+        <h1 class="header__title">To-DO App</h1>
+        <h2 class="header__subtitle">Things to Do</h2>
+      </div>
+    </div>
+
+    <div class="actions">
+      <div class="actions__container">
+        <input class="input" id="i2" type="text" placeholder="Filter Todo" />
+        <label class="checkbox">
+          <input id="hide-completed" type="checkbox" /> Hide Completed
+        </label>
+      </div>
+    </div>
+
+    <div class="container">
+      <div id="todos"></div>
+      <form id="new-todo">
+        <input type="text" placeholder="Something to do" name="text" />
+        <button class="button" id="b1">Add Todo</button>
+      </form>
+    </div>
+
+    <script src="/todo-app/public/scripts/bundle.js"></script>
   </body>
 </html>
