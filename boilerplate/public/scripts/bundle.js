@@ -11155,113 +11155,6 @@ module.exports = g;
 
 /***/ }),
 
-/***/ "./src/hangman.js":
-/*!************************!*\
-  !*** ./src/hangman.js ***!
-  \************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Hangman = function () {
-  function Hangman(word, remainingGuesses) {
-    _classCallCheck(this, Hangman);
-
-    this.word = word.toLowerCase().split("");
-    this.remainingGuesses = remainingGuesses;
-    this.guessedLetters = [];
-    this.status = "playing";
-  }
-
-  _createClass(Hangman, [{
-    key: "calculateStatus",
-    value: function calculateStatus() {
-      var _this = this;
-
-      var finished = this.word.every(function (letter) {
-        return _this.guessedLetters.includes(letter) || letter === " ";
-      });
-
-      if (this.remainingGuesses === 0) {
-        this.status = "failed";
-      } else if (finished) {
-        this.status = "finished";
-      } else {
-        this.status = "playing";
-      }
-    }
-  }, {
-    key: "makeGuess",
-    value: function makeGuess(guess) {
-      guess = guess.toLowerCase();
-      var isUnique = !this.guessedLetters.includes(guess);
-      var isBadGuess = !this.word.includes(guess);
-
-      if (this.status !== "playing") {
-        return;
-      }
-
-      if (isUnique) {
-        this.guessedLetters = [].concat(_toConsumableArray(this.guessedLetters), [guess]);
-
-        //this.guessedLetters.push(guess);
-      }
-
-      if (isUnique && isBadGuess) {
-        this.remainingGuesses--;
-      }
-
-      this.calculateStatus();
-    }
-  }, {
-    key: "statusMessage",
-    get: function get() {
-      if (this.status === "playing") {
-        return "Guesses left: " + this.remainingGuesses;
-      } else if (this.status === "failed") {
-        return "Nice try! The word was \"" + this.word.join("") + "\".";
-      } else {
-        return "Great work! You guessed the word.";
-      }
-    }
-  }, {
-    key: "puzzle",
-    get: function get() {
-      var _this2 = this;
-
-      var puzzle = "";
-
-      this.word.forEach(function (letter) {
-        if (_this2.guessedLetters.includes(letter) || letter === " ") {
-          puzzle += letter;
-        } else {
-          puzzle += "*";
-        }
-      });
-
-      return puzzle;
-    }
-  }]);
-
-  return Hangman;
-}();
-
-exports.default = Hangman;
-
-/***/ }),
-
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
@@ -11272,290 +11165,116 @@ exports.default = Hangman;
 "use strict";
 
 
-var _hangman = __webpack_require__(/*! ./hangman */ "./src/hangman.js");
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
-var _hangman2 = _interopRequireDefault(_hangman);
+// // const calculateAverage = (name, ...numbers) => {
+// //   //return (num1 + num2) / 2;
+// //   let sum = 0;
+// //   numbers.forEach((num) => (sum += num));
+// //   const avg = sum / numbers.length;
+// //   return `The average ${name} is ${avg}`;
+// // };
 
-var _request = __webpack_require__(/*! ./request */ "./src/request.js");
+// // console.log(calculateAverage("age", 50, 5, 100, 25));
 
-var _request2 = _interopRequireDefault(_request);
+// // const cricket = (teamname, coach, ...players) => {
+// //   return `Your team ${teamname} has following players ${players} and coach is ${coach}`;
+// // };
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+// // console.log(cricket("Liberty", "Casey Penn", "Marge, Aiden, Herbert, Sherry"));
 
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+// const printTeam = (teamname, coach, ...players) => {
+//   console.log(`Team: ${teamname}`);
+//   console.log(`coach: ${coach}`);
+//   console.log(`players: ${players.join(", ")}`);
+// };
 
-var puzzleEl = document.querySelector("#puzzle");
-var guessesEl = document.querySelector("#guesses");
-var game1 = void 0;
+// const team = {
+//   name: "Liberty",
+//   coach: "Casey Penn",
+//   players: ["Marge", "Aiden", "Herbert", "Sherry"],
+// };
 
-window.addEventListener("keypress", function (e) {
-  var guess = String.fromCharCode(e.charCode);
-  game1.makeGuess(guess);
-  render();
-});
+// printTeam(team.name, team.coach, ...team.players);
 
-var render = function render() {
-  puzzleEl.innerHTML = "";
-  guessesEl.textContent = game1.statusMessage;
+// let cities = ["Maninagar", "Isanpur", "Vatva"];
+// //const citiesCopy = ["C.G. Road", ...cities];
+// cities = [...cities, "C.G.Road"];
+// // citiesCopy.push("C.G. Road");
 
-  game1.puzzle.split("").forEach(function (letter) {
-    var letterEl = document.createElement("span");
-    letterEl.textContent = letter;
-    puzzleEl.appendChild(letterEl);
-  });
+// console.log(cities);
+// //console.log(citiesCopy);
+// // printTeam("Liberty", "Casey Penn", "Marge", "Aiden", "Herbert", "Sherry");
+
+// let house = {
+//   bedroom: 3,
+//   bathrooms: 2,
+//   yearBuilt: 2000,
+// };
+
+// let newHouse = {
+//   dininghall: true,
+//   ...house,
+//   bedroom: 1,
+// };
+
+// //newHouse.yearBuilt = 2002;
+
+// console.log(house);
+// console.log(newHouse);
+
+// const person = {
+//   name: "Mann",
+//   age: 21,
+// };
+
+// const loacation = {
+//   city: "Maninagar",
+//   Country: "India",
+// };
+
+// const info = {
+//   ...person,
+//   ...loacation,
+// };
+
+// console.log(info);
+
+var todo = {
+  id: 54,
+  text: "Pay the bill",
+  completed: false
 };
 
-var startGame = function () {
-  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-    var puzzle;
-    return regeneratorRuntime.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            _context.next = 2;
-            return (0, _request2.default)("2");
+// const text = todo.text;
+// const completed = todo.completed;
 
-          case 2:
-            puzzle = _context.sent;
+var printTodo = function printTodo(todo) {
+  console.log(todo.text + ": " + todo.completed);
+};
 
-            game1 = new _hangman2.default(puzzle, 5);
-            render();
+printTodo(todo);
 
-          case 5:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee, undefined);
-  }));
+var todoText = todo.text,
+    completed = todo.completed,
+    _todo$details = todo.details,
+    details = _todo$details === undefined ? "Do it fast" : _todo$details,
+    others = _objectWithoutProperties(todo, ["text", "completed", "details"]);
 
-  return function startGame() {
-    return _ref.apply(this, arguments);
-  };
-}();
+console.log(todoText);
+console.log(completed);
+console.log(details);
+console.log(others);
 
-document.querySelector("#reset").addEventListener("click", startGame);
-
-startGame();
-
-/***/ }),
-
-/***/ "./src/request.js":
-/*!************************!*\
-  !*** ./src/request.js ***!
-  \************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
+var age = [65, 0, 13, 21];
+var firstAge = age[0],
+    SecondAge = age[1],
+    lastAge = age[3];
 
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
-
-var getPuzzle = function () {
-  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(wordCount) {
-    var response, data;
-    return regeneratorRuntime.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            _context.next = 2;
-            return fetch("//puzzle.mead.io/puzzle?wordCount=" + wordCount);
-
-          case 2:
-            response = _context.sent;
-
-            if (!(response.status === 200)) {
-              _context.next = 10;
-              break;
-            }
-
-            _context.next = 6;
-            return response.json();
-
-          case 6:
-            data = _context.sent;
-            return _context.abrupt("return", data.puzzle);
-
-          case 10:
-            throw new Error("Unable to get puzzle");
-
-          case 11:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee, undefined);
-  }));
-
-  return function getPuzzle(_x) {
-    return _ref.apply(this, arguments);
-  };
-}();
-
-var getCurrentCountry = function () {
-  var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-    var location;
-    return regeneratorRuntime.wrap(function _callee2$(_context2) {
-      while (1) {
-        switch (_context2.prev = _context2.next) {
-          case 0:
-            _context2.next = 2;
-            return getLocation();
-
-          case 2:
-            location = _context2.sent;
-            return _context2.abrupt("return", getCountry(location.country));
-
-          case 4:
-          case "end":
-            return _context2.stop();
-        }
-      }
-    }, _callee2, undefined);
-  }));
-
-  return function getCurrentCountry() {
-    return _ref2.apply(this, arguments);
-  };
-}();
-
-var getCountry = function () {
-  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(countryCode) {
-    var response, data;
-    return regeneratorRuntime.wrap(function _callee3$(_context3) {
-      while (1) {
-        switch (_context3.prev = _context3.next) {
-          case 0:
-            _context3.next = 2;
-            return fetch("//restcountries.com/v3.1/all");
-
-          case 2:
-            response = _context3.sent;
-
-            if (!(response.status === 200)) {
-              _context3.next = 10;
-              break;
-            }
-
-            _context3.next = 6;
-            return response.json();
-
-          case 6:
-            data = _context3.sent;
-            return _context3.abrupt("return", data.find(function (country) {
-              return country.cca2 === countryCode;
-            }));
-
-          case 10:
-            throw new Error("Unable to fetch the country");
-
-          case 11:
-          case "end":
-            return _context3.stop();
-        }
-      }
-    }, _callee3, undefined);
-  }));
-
-  return function getCountry(_x2) {
-    return _ref3.apply(this, arguments);
-  };
-}();
-
-var getLocation = function () {
-  var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
-    var response;
-    return regeneratorRuntime.wrap(function _callee4$(_context4) {
-      while (1) {
-        switch (_context4.prev = _context4.next) {
-          case 0:
-            _context4.next = 2;
-            return fetch("//ipinfo.io/json?token=8efab4cc9f1acc");
-
-          case 2:
-            response = _context4.sent;
-
-            if (!(response.status === 200)) {
-              _context4.next = 7;
-              break;
-            }
-
-            return _context4.abrupt("return", response.json());
-
-          case 7:
-            throw new Error("Unable to get the current location");
-
-          case 8:
-          case "end":
-            return _context4.stop();
-        }
-      }
-    }, _callee4, undefined);
-  }));
-
-  return function getLocation() {
-    return _ref4.apply(this, arguments);
-  };
-}();
-
-exports.default = getPuzzle;
-// const getCountryold = (countryCode) => {
-//   return fetch("https://restcountries.com/v3.1/all")
-//     .then((response) => {
-//       if (response.status === 200) {
-//         return response.json();
-//       } else {
-//         throw new Error("Unable to load data");
-//       }
-//     })
-//     .then((data) => {
-//       return data.find((country) => country.cca2 === countryCode);
-//     });
-// };
-
-// const getPuzzleold = (wordCount) => {
-//   return fetch(`http://puzzle.mead.io/puzzle?wordCount=${wordCount}`)
-//     .then((response) => {
-//       if (response.status === 200) {
-//         return response.json();
-//       } else {
-//         throw new Error("Unable to load Puzzle");
-//       }
-//     })
-//     .then((data) => {
-//       return data.puzzle;
-//     });
-// };
-
-// const getLocationold = () => {
-//   return fetch("http://ipinfo.io/json?token=8efab4cc9f1acc").then(
-//     (response) => {
-//       if (response.status === 200) {
-//         return response.json();
-//       } else {
-//         throw new Error("Unable to load location");
-//       }
-//     }
-//   );
-// };
-// const getPuzzleSync = () => {
-//   const request = new XMLHttpRequest();
-
-//   request.open("GET", "https://puzzle.mead.io/puzzle?wordCount=3", false);
-//   request.send();
-
-//   if (request.readyState === 4 && request.status === 200) {
-//     const data = JSON.parse(request.responseText);
-//     return data.puzzle;
-//   } else if (request.readyState === 4) {
-//     throw new Error("Error Occured");
-//   }
-// };
+console.log(firstAge);
+console.log(SecondAge);
+console.log(lastAge);
 
 /***/ }),
 

@@ -11294,12 +11294,15 @@ var getFilters = function getFilters() {
   return filters;
 };
 
-var setFilters = function setFilters(updates) {
-  if (typeof updates.searchText === "string") {
-    filters.searchText = updates.searchText;
+var setFilters = function setFilters(_ref) {
+  var searchText = _ref.searchText,
+      hideCompleted = _ref.hideCompleted;
+
+  if (typeof searchText === "string") {
+    filters.searchText = searchText;
   }
-  if (typeof updates.hideCompleted === "boolean") {
-    filters.hideCompleted = updates.hideCompleted;
+  if (typeof hideCompleted === "boolean") {
+    filters.hideCompleted = hideCompleted;
   }
 };
 
@@ -11470,10 +11473,14 @@ var _filters = __webpack_require__(/*! ./filters */ "./src/filters.js");
 // Render application todos based on filters
 var renderTodos = function renderTodos() {
   var todoEl = document.querySelector("#todos");
-  var filters = (0, _filters.getFilters)();
+
+  var _getFilters = (0, _filters.getFilters)(),
+      searchText = _getFilters.searchText,
+      hideCompleted = _getFilters.hideCompleted;
+
   var filteredTodos = (0, _todos.getTodos)().filter(function (todo) {
-    var searchTextMatch = todo.text.toLowerCase().includes(filters.searchText.toLowerCase());
-    var hideCompletedMatch = !filters.hideCompleted || !todo.completed;
+    var searchTextMatch = todo.text.toLowerCase().includes(searchText.toLowerCase());
+    var hideCompletedMatch = !hideCompleted || !todo.completed;
 
     return searchTextMatch && hideCompletedMatch;
   });
